@@ -6,61 +6,104 @@ import Person from './Person/Person';
 class App extends Component {
   constructor(props) {
     super(props);
+    this.constantPersons = [
+      {id: 0, name: "Tanya", age: 27},
+      {id: 1, name: "Sigizmund", age: 36, hobby: "My hobby is dansing!"},
+      {id: 2, name: "Sarah", age: 34}
+    ];
     this.state = {
-        persons: [
-          {id: 0, name: "Tanya", age: 27},
-          {id: 1, name: "Sigizmund", age: 36, hobby: "My hobby is dansing!"},
-          {id: 2, name: "Sarah", age: 34}
-        ]
+        persons: this.constantPersons,
+        showPersons: false
       };
   }
 
 
-  switchNameHandler(id, newName) {
-    let prsns = [
-      {id: 0, name: "Tanya", age: 27},
-      {id: 1, name: "Yaroslav", age: 36, hobby: "My hobby is tango danser!"},
-      {id: 2, name: "Sarah", age: 34}
-    ];
-    prsns[id]['name'] = `not ${newName}`;
+  switchNameHandler() {
+    if (this.state.persons.length) {
+      let prsns = [...this.state.persons];
+      let id = prompt('Enter number from 1 to 3');
+      if (id > 0 && id < 4) {
+        let newName = prompt('Enter new Name:');
+        if (newName) {
+          prsns[(id - 1)]['name'] = newName;
+          this.setState({
+            persons: prsns,
+            showPersons: true
+          })
+        } else {
+          alert("Name can't be empty field!");
+          this.switchNameHandler();
+        }
+      } else {
+        this.switchNameHandler();
+      }
+
+    } else {
+      this.setState({
+        persons: this.constantPersons
+      })
+    }
+
+  }
+
+  deletePersonHandler(id, event) {
+    let prsns = this.state.persons.slice();//copy array not ref
+    prsns.splice(id,1);
+    //prsns = prsns.filter((person) => person.id!==id);
     this.setState({
       persons: prsns
     })
   }
 
-  changeNameHandler = (event) => {
-    let prsns = [
-      {id: 0, name: "Tanya", age: 27},
-      {id: 1, name: "Yaroslav", age: 36, hobby: "My hobby is tango danser!"},
-      {id: 2, name: "Sarah", age: 34}
-    ];
-    prsns[event.target.id]['name'] = `not ${event.target.value}`;
+  changeNameHandler(id, event){
+    let prsns = [...this.state.persons];//the other way to copy array not ref
+    prsns[id]['name'] = `not ${event.target.value}`;
     this.setState({
       persons: prsns
     })
+  }
+
+  togglePersons = () => {
+    const toggleP = this.state.showPersons?false:true;
+
+    this.setState({
+      showPersons: toggleP
+    })
+  }
+
+  personsContent = () => {
+    return (<div>
+        <button onClick={this.switchNameHandler.bind(this)}>Switch Name</button>
+      {
+        this.state.persons.map((person,index) => {
+          return (
+            <div key={index}>
+              <Person
+                key={index}
+                k={index}
+                name={person.name}
+                age={person.age}
+                click={this.switchNameHandler.bind(this, index, person.name)}
+                change={this.changeNameHandler.bind(this, index)}
+                del={this.deletePersonHandler.bind(this, index)}
+                >
+                {person.hobby}</Person>
+            </div>
+            )
+        })
+      }
+      </div>);
   }
 
   render() {
     return (
       <div className="App">
         <h1>Hi, I`m react app.</h1>
-        <button onClick={this.switchNameHandler.bind(this, 0, 'Tanya')}>Switch Name</button>
-        {
-          this.state.persons.map((person) => {
-            return (
-              <Person
-                key={person.id}
-                k={person.id}
-                name={person.name}
-                age={person.age}
-                click={this.switchNameHandler.bind(this, person.id, person.name)}
-                change={this.changeNameHandler}>
-                {person.hobby}</Person> )
-          })
-        }
+        <button onClick={this.togglePersons}>Toggle Persons</button>
+        {this.state.showPersons ?
+        this.personsContent():null}
       </div>
     );
-    //return React.createElement('div', {className: 'App'}, React.createElement('h1', null, 'Hi, I\'m react app!!!') );
   }
 }
 
