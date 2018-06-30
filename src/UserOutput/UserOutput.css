@@ -1,0 +1,8 @@
+.UserOutput p:first-child {
+  font-size: 18px;
+  color: #111;
+  font-family: Helvetica, sans-serif;
+}
+p {
+  color: #666;
+}

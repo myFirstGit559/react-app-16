@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import './App.css';
 
-import Person from './Person/Person';
+import UserOutput from './UserOutput/UserOutput.js';
+import UserInput from './UserInput/UserInput.js';
 
 class App extends Component {
   constructor(props) {
@@ -16,51 +17,29 @@ class App extends Component {
   }
 
 
-  switchNameHandler(id, newName) {
-    let prsns = [
-      {id: 0, name: "Tanya", age: 27},
-      {id: 1, name: "Yaroslav", age: 36, hobby: "My hobby is tango danser!"},
-      {id: 2, name: "Sarah", age: 34}
-    ];
-    prsns[id]['name'] = `not ${newName}`;
+  eventHandler(id, event) {
+    const changePersons = this.state.persons;
+    changePersons[id]['name'] = event.target.value;
     this.setState({
-      persons: prsns
-    })
-  }
-
-  changeNameHandler = (event) => {
-    let prsns = [
-      {id: 0, name: "Tanya", age: 27},
-      {id: 1, name: "Yaroslav", age: 36, hobby: "My hobby is tango danser!"},
-      {id: 2, name: "Sarah", age: 34}
-    ];
-    prsns[event.target.id]['name'] = `not ${event.target.value}`;
-    this.setState({
-      persons: prsns
-    })
+      persons: changePersons
+    });
   }
 
   render() {
     return (
       <div className="App">
-        <h1>Hi, I`m react app.</h1>
-        <button onClick={this.switchNameHandler.bind(this, 0, 'Tanya')}>Switch Name</button>
-        {
-          this.state.persons.map((person) => {
-            return (
-              <Person
-                key={person.id}
-                k={person.id}
-                name={person.name}
-                age={person.age}
-                click={this.switchNameHandler.bind(this, person.id, person.name)}
-                change={this.changeNameHandler}>
-                {person.hobby}</Person> )
-          })
-        }
+        <h1>Task 1</h1>
+        <h4>Output and Input:</h4>
+        {this.state.persons.map((person) => {
+          return (
+            <div key={person.id} className="AppCard">
+              <UserOutput username={person.name}/>
+              <UserInput k={person.id} change={this.eventHandler.bind(this, person.id)} />
+            </div>
+          )
+        })}
       </div>
     );
-    //return React.createElement('div', {className: 'App'}, React.createElement('h1', null, 'Hi, I\'m react app!!!') );
   }
 }
 
