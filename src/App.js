@@ -9,7 +9,7 @@ class App extends Component {
     this.state = {
         persons: [
           {id: 0, name: "Tanya", age: 27},
-          {id: 1, name: "Yaroslav", age: 36, hobby: "My hobby is tango danser!"},
+          {id: 1, name: "Sigizmund", age: 36, hobby: "My hobby is dansing!"},
           {id: 2, name: "Sarah", age: 34}
         ]
       };
