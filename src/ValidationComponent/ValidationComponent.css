@@ -1,0 +1,10 @@
+.error {
+  color: red;
+}
+.valid {
+  color: green;
+}
+p {
+  font-size: 12px;
+  text-align: center;
+}

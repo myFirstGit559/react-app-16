@@ -1,5 +1,15 @@
 .App {
-  text-align: center;
+  text-align: left;
+  padding: 10px;
+  margin: 10px auto;
+  border: 1px solid #eee;
+  box-shadow: 0 2px 2px #eee;
+  max-width: 500px;
+}
+input {
+  min-width: 300px;
+  padding: 10px;
+  font-size: 14px;
 }
 
 .App-logo {
