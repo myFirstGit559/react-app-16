@@ -3,6 +3,8 @@ import './App.css';
 
 import Person from './Person/Person';
 
+import Radium from 'radium';
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -71,7 +73,8 @@ class App extends Component {
     })
   }
 
-  personsContent = () => {
+  personsContent = (toggleButton) => {
+    toggleButton.backgroundColor = '#008822'
     return (<div>
         <button onClick={this.switchNameHandler.bind(this)}>Switch Name</button>
       {
@@ -96,15 +99,33 @@ class App extends Component {
   }
 
   render() {
+    const toggleButton = {
+      padding: '15px',
+      color: 'white',
+      backgroundColor: '#990022',
+      fontSize: '14px',
+      margin: '15px',
+      ':focus': {
+        outline: '0',
+        boxShadow: 'none'
+      },
+      ':hover': {
+        backgroundColor: '#220099',
+      },
+      '@media (max-width: 500px)': {
+        width: '100%'
+      }
+    }
     return (
-      <div className="App">
-        <h1>Hi, I`m react app.</h1>
-        <button onClick={this.togglePersons}>Toggle Persons</button>
-        {this.state.showPersons ?
-        this.personsContent():null}
-      </div>
+        <div className="App">
+          <h1>Hi, I`m react app.</h1>
+          <button style={toggleButton} onClick={this.togglePersons}>Toggle Persons</button>
+          {this.state.showPersons &&
+            this.personsContent(toggleButton)
+          }
+        </div>
     );
   }
 }
 
-export default App;
+export default Radium(App);
