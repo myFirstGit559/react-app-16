@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import classes from './App.css';
 
-import Person from './Person/Person';
-import ErrorBoundary from './ErrorBoundary/ErrorBoundary';
+import Persons from '../components/Persons/Persons';
+import Cockpit from '../components/Cockpit/Cockpit';
 
 class App extends Component {
   constructor(props) {
@@ -18,8 +18,7 @@ class App extends Component {
       };
   }
 
-
-  switchNameHandler() {
+  switchNameHandler = () =>{
     if (this.state.persons.length) {
       let prsns = [...this.state.persons];
       let id = prompt('Enter number from 1 to 3');
@@ -47,7 +46,7 @@ class App extends Component {
 
   }
 
-  deletePersonHandler(id, event) {
+  deletePersonHandler = (id, event) => {
     let prsns = this.state.persons.slice();//copy array not ref
     prsns.splice(id,1);
     //prsns = prsns.filter((person) => person.id!==id);
@@ -56,7 +55,7 @@ class App extends Component {
     })
   }
 
-  changeNameHandler(id, event){
+  changeNameHandler = (id, event) => {
     let prsns = [...this.state.persons];//the other way to copy array not ref
     prsns[id]['name'] = `not ${event.target.value}`;
     this.setState({
@@ -72,40 +71,19 @@ class App extends Component {
     })
   }
 
-  personsContent = () => {
-    return (<div>
-        <button onClick={this.switchNameHandler.bind(this)}>Switch Name</button>
-      {
-        this.state.persons.map((person,index) => {
-          return (
-            <div key={index}>
-              <ErrorBoundary>
-                <Person
-                  key={index}
-                  k={index}
-                  name={person.name}
-                  age={person.age}
-                  click={this.switchNameHandler.bind(this, index, person.name)}
-                  change={this.changeNameHandler.bind(this, index)}
-                  del={this.deletePersonHandler.bind(this, index)}
-                  >
-                  {person.hobby}</Person>
-                </ErrorBoundary>
-            </div>
-            )
-        })
-      }
-      </div>);
-  }
-
   render() {
   const toggleClass = (this.state.showPersons)? `${classes.toggleButton} ${classes.toggleActive}`: classes.toggleButton;
     return (
         <div className={classes.App}>
-          <h1>Hi, I`m react app.</h1>
-          <button className={toggleClass} onClick={this.togglePersons}>Toggle Persons</button>
+          <Cockpit classToggle={toggleClass} toggle={this.togglePersons} />
           {this.state.showPersons &&
-            this.personsContent()
+            <Persons
+              switch={this.switchNameHandler.bind(this)}
+              persons={this.state.persons}
+              switch={this.switchNameHandler}
+              change={this.changeNameHandler}
+              delInd={this.deletePersonHandler}
+            />
           }
         </div>
     );
