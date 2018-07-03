@@ -1,3 +1,43 @@
 .App {
   text-align: center;
+  margin: 0 auto;
+}
+
+.App .toggleButton {
+  padding: 15px;
+  color: white;
+  background-color: #990022;
+  font-size: 14px;
+  margin: 15px 0;
+}
+
+.App .toggleButton:hover {
+  background-color: #660022;
+}
+
+.App .toggleActive {
+  background-color: #229900;
+}
+
+.App button {
+  padding: 5px;
+  color: white;
+  background-color: #220099;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.App button:focus {
+  outline: 0;
+  box-shadow: none;
+}
+
+.App button:hover {
+  background-color: #220066;
+}
+
+@media all and (max-width: 500px) {
+  .App button {
+    width: 100%;
+  }
 }
