@@ -2,6 +2,10 @@ import React from 'react';
 import classes from './Person.css';
 
 const person = (props) => {
+  let run = Math.random();
+  if (run > 0.6) {
+    throw new Error('Smth goes wrong');
+  }
   return (
     <div className={classes.Person}>
       <p>------------------------</p>
