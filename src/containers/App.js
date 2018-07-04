@@ -31,8 +31,8 @@ class App extends Component {
     console.log('[App.js] componentWillReceiveProps(): ', this.props, arguments);
   }
 
-  shouldComponentUpdate() {
-    console.log('[App.js] shouldComponentUpdate(): ', this.props, arguments);
+  shouldComponentUpdate(nextProps, nextState) {
+    console.log('[App.js] shouldComponentUpdate(): ', 'nextProps: ', nextProps, 'nextState: ', nextState);
 
     return true;
   }

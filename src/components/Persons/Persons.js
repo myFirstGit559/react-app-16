@@ -13,8 +13,8 @@ class Persons extends Component {
     console.log('[Persons.js] componentWillReceiveProps(): ', this.props, arguments);
   }
 
-  shouldComponentUpdate() {
-    console.log('[Persons.js] shouldComponentUpdate(): ', this.props, arguments);
+  shouldComponentUpdate(nextProps, nextState) {
+    console.log('[Persons.js] shouldComponentUpdate(): ', 'nextProps: ', nextProps, 'nextState: ', nextState);
 
     return true;
   }
