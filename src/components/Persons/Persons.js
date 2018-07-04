@@ -1,4 +1,7 @@
-import React, { Component } from 'react';
+import React, { Component, PureComponent } from 'react';
+
+//PureComponent compare previous and current state in shouldComponentUpdate
+//allow changes if they are different
 
 import Person from './Person/Person';
 
