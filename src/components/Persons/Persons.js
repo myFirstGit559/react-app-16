@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import Person from './Person/Person';
 
-const Persons = (props) => {
+const persons = (props) => {
     return (<div>
         <button onClick={props.switch}>Switch Name</button>
       {
@@ -26,4 +26,4 @@ const Persons = (props) => {
       </div>);
 }
 
-export default Persons;
+export default persons;
