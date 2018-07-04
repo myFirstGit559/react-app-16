@@ -16,6 +16,29 @@ class App extends Component {
         persons: this.constantPersons,
         showPersons: false
       };
+    console.log('[App.js] constructor: ', props, '\n', this.state);
+  }
+
+  componentWillMount() {
+    console.log('[App.js] componentWillMount(): ', this.props, '\n', this.state, '\n', arguments);
+  }
+
+  componentDidMount() {
+    console.log('[App.js] componentDidMount(): ', this.props, '\n', this.state, '\n', arguments);
+  }
+
+  componentWillReceiveProps() {
+    console.log('[App.js] componentWillReceiveProps(): ', this.props, arguments);
+  }
+
+  shouldComponentUpdate() {
+    console.log('[App.js] shouldComponentUpdate(): ', this.props, arguments);
+
+    return true;
+  }
+
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    console.log('[App.js] componentDidUpdate(): ', 'prevProps: ', prevProps, 'prevState: ', prevState, 'snapshot: ', snapshot);
   }
 
   switchNameHandler = () =>{
@@ -72,6 +95,7 @@ class App extends Component {
   }
 
   render() {
+    console.log('[App.js] render.');
   const toggleClass = (this.state.showPersons)? `${classes.toggleButton} ${classes.toggleActive}`: classes.toggleButton;
     return (
         <div className={classes.App}>
