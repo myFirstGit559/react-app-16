@@ -22,23 +22,34 @@ class App extends Component {
     console.log('[App.js] constructor: ', props, '\n', this.state);
   }
 
-  componentWillMount() {
-    console.log('[App.js] componentWillMount(): ', this.props, '\n', this.state, '\n', arguments);
-  }
+  // componentWillMount() {
+  //   console.log('[App.js] componentWillMount(): ', this.props, '\n', this.state, '\n', arguments);
+  // }
 
   componentDidMount() {
     console.log('[App.js] componentDidMount(): ', this.props, '\n', this.state, '\n', arguments);
   }
 
-  componentWillReceiveProps() {
-    console.log('[App.js] componentWillReceiveProps(): ', this.props, arguments);
+  // componentWillReceiveProps() {
+  //   console.log('[App.js] componentWillReceiveProps(): ', this.props, arguments);
+  // }
+
+  static getDrivedStateFromProps(nextProps, prevState) {
+    console.log('UPDATE [App.js] getDrivedStateFromProps(): ', 'nextProps: ', nextProps, 'prevState: ', prevState);
+
+    return prevState;
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
-    console.log('[App.js] shouldComponentUpdate(): ', 'nextProps: ', nextProps, 'nextState: ', nextState);
+  getSnapshotBeforeUpdate() {
+    console.log('UPDATE [App.js] getSnapshotBeforeUpdate(): ', arguments);
 
-    return true;
+    return null;
   }
+  // shouldComponentUpdate(nextProps, nextState) {
+  //   console.log('[App.js] shouldComponentUpdate(): ', 'nextProps: ', nextProps, 'nextState: ', nextState);
+  //
+  //   return true;
+  // }  dangerous to use
 
   componentDidUpdate(prevProps, prevState, snapshot) {
     console.log('[App.js] componentDidUpdate(): ', 'prevProps: ', prevProps, 'prevState: ', prevState, 'snapshot: ', snapshot);

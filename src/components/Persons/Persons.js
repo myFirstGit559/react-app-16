@@ -16,11 +16,11 @@ class Persons extends Component {
     console.log('[Persons.js] componentWillReceiveProps(): ', this.props, arguments);
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
-    console.log('[Persons.js] shouldComponentUpdate(): ', 'nextProps: ', nextProps, 'nextState: ', nextState);
-
-    return true;
-  }
+  // shouldComponentUpdate(nextProps, nextState) {
+  //   console.log('[Persons.js] shouldComponentUpdate(): ', 'nextProps: ', nextProps, 'nextState: ', nextState);
+  //
+  //   return true;
+  // } dangerous to use
 
   componentDidUpdate(prevProps, prevState, snapshot) {
     console.log('[Persons.js] componentDidUpdate(): ', 'prevProps: ', prevProps, 'prevState: ', prevState, 'snapshot: ', snapshot);
