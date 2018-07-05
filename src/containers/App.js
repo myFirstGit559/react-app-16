@@ -4,6 +4,8 @@ import classes from './App.css';
 import Persons from '../components/Persons/Persons';
 import Cockpit from '../components/Cockpit/Cockpit';
 
+export const AuthContext = React.createContext(false);
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -14,7 +16,8 @@ class App extends Component {
     ];
     this.state = {
         persons: this.constantPersons,
-        showPersons: false
+        showPersons: false,
+        authenticated: false
       };
     console.log('[App.js] constructor: ', props, '\n', this.state);
   }
@@ -94,20 +97,29 @@ class App extends Component {
     })
   }
 
+  loginHandler = () => {
+    this.setState({authenticated: true})
+  }
+
   render() {
     console.log('[App.js] render.');
   const toggleClass = (this.state.showPersons)? `${classes.toggleButton} ${classes.toggleActive}`: classes.toggleButton;
     return (
         <div className={classes.App}>
-          <Cockpit classToggle={toggleClass} toggle={this.togglePersons} />
+          <Cockpit
+            classToggle={toggleClass}
+            toggle={this.togglePersons}
+            login={this.loginHandler} />
           {this.state.showPersons &&
-            <Persons
-              switch={this.switchNameHandler.bind(this)}
-              persons={this.state.persons}
-              switch={this.switchNameHandler}
-              change={this.changeNameHandler}
-              delInd={this.deletePersonHandler}
-            />
+            <AuthContext.Provider value={this.state.authenticated}>
+              <Persons
+                switch={this.switchNameHandler.bind(this)}
+                persons={this.state.persons}
+                switch={this.switchNameHandler}
+                change={this.changeNameHandler}
+                delInd={this.deletePersonHandler}
+              />
+            </AuthContext.Provider>
           }
         </div>
     );
