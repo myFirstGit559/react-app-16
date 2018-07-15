@@ -11,10 +11,18 @@ class FullPost extends Component {
       }
     }
 
+    componentDidMount() {
+      this.loadData();
+    }
+
     componentDidUpdate() {
-      if (this.props.id) {
-        if (!this.state.post || (this.state.post && this.state.post.id !== this.props.id)) {
-          axios.get(`/${this.props.id}`)
+      this.loadData();
+    }
+
+    loadData() {
+      if (this.props.match.params.id) {
+        if (!this.state.post || (this.state.post && this.state.post.id != this.props.match.params.id)) {
+          axios.get(`/${this.props.match.params.id}`)
             .then(response => {
               const post = {
                 ...response.data,
@@ -28,18 +36,19 @@ class FullPost extends Component {
     }
 
     deletePostHandler = (id) => {
-      axios.delete(`/${this.props.id}`)
+      axios.delete(`/${this.props.match.params.id}`)
         .then(response => {
           console.log('response: ', response);
         })
     }
 
     render () {
+      console.log('interested in params [FullPost.js]: ', this.props.match.params.id);
       let post = (
         <div className="FullPost">
           <p>Please select a Post!</p>
         </div>);
-      if (this.props.id) {
+      if (this.props.match.params.id) {
         post = (
           <div className="FullPost">
             <p>Loading...</p>
